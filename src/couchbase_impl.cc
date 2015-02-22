@@ -119,8 +119,8 @@ void CouchbaseImpl::encodeDoc(DefaultTranscoder& transcoder, const void **bytes,
         Handle<Value> res = transEncodeFunc->Call(1, args);
         if (!res.IsEmpty() && res->IsObject()) {
             Handle<Object> encObj = res.As<Object>();
-            Handle<Value> flagsObj = encObj->Get(NanNew(flagsKey));
-            Handle<Value> valueObj = encObj->Get(NanNew(valueKey));
+            Handle<Object> flagsObj = encObj->Get(NanNew(flagsKey)).As<Object>();
+            Handle<Object> valueObj = encObj->Get(NanNew(valueKey)).As<Object>();
             if (!flagsObj.IsEmpty() && !valueObj.IsEmpty()) {
                 if (node::Buffer::HasInstance(valueObj)) {
                     *nbytes = node::Buffer::Length(valueObj);

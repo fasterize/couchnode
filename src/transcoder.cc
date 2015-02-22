@@ -115,8 +115,8 @@ void DefaultTranscoder::encode(const void **bytes, lcb_SIZE *nbytes,
         // This relies on the fact that value would have came from the
         //   function which invoked the operation, thus it's lifetime is
         //   implicitly going to outlive the command operation we create.
-        *nbytes = node::Buffer::Length(value);
-        *bytes = node::Buffer::Data(value);
+        *nbytes = node::Buffer::Length(value.As<Object>());
+        *bytes = node::Buffer::Data(value.As<Object>());
         *flags = CF_RAW | NF_RAW;
         return;
     } else {
